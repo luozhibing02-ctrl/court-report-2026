@@ -25,18 +25,21 @@
   html { scroll-behavior: smooth; }
   body { background: var(--cream); font-family: 'PingFang SC','Microsoft YaHei',-apple-system,sans-serif; color: var(--ink); }
 
-  /* AI Banner - fixed top */
+  /* Fixed Header Wrapper */
+  .fixed-header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 10000;
+  }
+
+  /* AI Banner */
   .ai-banner {
     background: var(--red); color: #fff; text-align: center;
     padding: 10px 24px; font-size: 13px; font-weight: 700;
-    position: fixed; top: 0; left: 0; right: 0; z-index: 10000;
     letter-spacing: 1px;
   }
   .ai-banner a { color: #FFD700; margin-left: 8px; }
 
-  /* Nav - fixed below banner */
+  /* Nav - sits right below banner inside wrapper */
   .nav-bar {
-    position: fixed; top: 37px; left: 0; right: 0; z-index: 9999;
     background: rgba(22,33,62,0.97); backdrop-filter: blur(10px);
     display: flex; align-items: center; gap: 0; overflow-x: auto;
     border-bottom: 1px solid rgba(196,152,90,0.2);
@@ -52,6 +55,11 @@
 
   /* Spacer for fixed headers */
   .header-spacer { height: 82px; }
+
+  @media(max-width:768px){
+    .nav-bar { padding: 0 16px; }
+    .header-spacer { height: 120px; }
+  }
 
   /* Hero */
   .hero {
@@ -206,21 +214,21 @@
 </head>
 <body>
 
-<!-- Fixed AI Banner -->
-<div class="ai-banner">
-  本页面内容全部由AI自动生成，数据来源于最高人民法院官方报告
-  <a href="https://www.court.gov.cn/xinshidai/xiangqing/492921.html" target="_blank">查看官方原文</a>
+<!-- Fixed Header: Banner + Nav -->
+<div class="fixed-header" id="fixedHeader">
+  <div class="ai-banner">
+    本页面内容全部由AI自动生成，数据来源于最高人民法院官方报告
+    <a href="https://www.court.gov.cn/xinshidai/xiangqing/492921.html" target="_blank">查看官方原文</a>
+  </div>
+  <nav class="nav-bar">
+    <a href="#hero" class="active" id="nav-hero">首页</a>
+    <a href="#overview" id="nav-overview">数据总览</a>
+    <a href="#chapters" id="nav-chapters">六大篇章</a>
+    <a href="#cases" id="nav-cases">典型案例</a>
+    <a href="#charts" id="nav-charts">数据图鉴</a>
+    <a href="#outlook" id="nav-outlook">2026展望</a>
+  </nav>
 </div>
-
-<!-- Fixed Nav -->
-<nav class="nav-bar">
-  <a href="#hero" class="active" id="nav-hero">首页</a>
-  <a href="#overview" id="nav-overview">数据总览</a>
-  <a href="#chapters" id="nav-chapters">六大篇章</a>
-  <a href="#cases" id="nav-cases">典型案例</a>
-  <a href="#charts" id="nav-charts">数据图鉴</a>
-  <a href="#outlook" id="nav-outlook">2026展望</a>
-</nav>
 
 <!-- Spacer -->
 <div class="header-spacer"></div>
@@ -527,12 +535,14 @@ document.addEventListener("keydown",function(e){
 
 /* ===== NAV HIGHLIGHT ===== */
 var navIds=["hero","overview","chapters","cases","charts","outlook"];
+var headerEl=document.getElementById("fixedHeader");
 window.addEventListener("scroll",function(){
   var scrollY=window.pageYOffset||document.documentElement.scrollTop;
+  var hh=headerEl?headerEl.offsetHeight:82;
   var current="hero";
   for(var i=0;i<navIds.length;i++){
     var sec=document.getElementById(navIds[i]);
-    if(sec&&sec.offsetTop-120<=scrollY) current=navIds[i];
+    if(sec&&sec.offsetTop-(hh+20)<=scrollY) current=navIds[i];
   }
   for(var j=0;j<navIds.length;j++){
     var link=document.getElementById("nav-"+navIds[j]);
@@ -543,6 +553,26 @@ window.addEventListener("scroll",function(){
 /* ===== INIT ===== */
 render();
 window.addEventListener("resize",renderDrunkChart);
+
+// Override anchor click to account for dynamic header height
+var allNavLinks=document.querySelectorAll(".nav-bar a");
+for(var nl=0;nl<allNavLinks.length;nl++){
+  allNavLinks[nl].addEventListener("click",function(e){
+    e.preventDefault();
+    var targetId=this.getAttribute("href").substring(1);
+    var target=document.getElementById(targetId);
+    var hh=headerEl?headerEl.offsetHeight:82;
+    if(target) window.scrollTo({top:target.offsetTop-hh-8,behavior:"smooth"});
+  });
+}
+
+// Set spacer height dynamically
+function updateSpacer(){
+  var sp=document.querySelector(".header-spacer");
+  if(sp&&headerEl) sp.style.height=headerEl.offsetHeight+"px";
+}
+updateSpacer();
+window.addEventListener("resize",updateSpacer);
 
 })();
 </script>
