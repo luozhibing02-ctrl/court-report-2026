@@ -28,15 +28,17 @@
   /* Fixed Header Wrapper */
   .fixed-header {
     position: fixed; top: 0; left: 0; right: 0; z-index: 10000;
+    padding-top: env(safe-area-inset-top, 0px);
+    background: var(--navy);
   }
 
   /* AI Banner */
   .ai-banner {
     background: var(--red); color: #fff; text-align: center;
-    padding: 10px 24px; font-size: 13px; font-weight: 700;
-    letter-spacing: 1px;
+    padding: 8px 16px; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.5px; line-height: 1.6;
   }
-  .ai-banner a { color: #FFD700; margin-left: 8px; }
+  .ai-banner a { color: #FFD700; margin-left: 4px; white-space: nowrap; }
 
   /* Nav - sits right below banner inside wrapper */
   .nav-bar {
@@ -44,21 +46,24 @@
     display: flex; align-items: center; gap: 0; overflow-x: auto;
     border-bottom: 1px solid rgba(196,152,90,0.2);
     padding: 0 48px;
+    -webkit-overflow-scrolling: touch;
   }
   .nav-bar a {
-    display: block; padding: 14px 18px; font-size: 13px; font-weight: 500;
+    display: block; padding: 12px 16px; font-size: 13px; font-weight: 500;
     color: rgba(255,255,255,0.5); text-decoration: none; white-space: nowrap;
     border-bottom: 2px solid transparent; transition: color 0.3s, border-color 0.3s;
   }
   .nav-bar a:hover { color: rgba(255,255,255,0.85); }
   .nav-bar a.active { color: var(--gold); border-bottom-color: var(--gold); }
 
-  /* Spacer for fixed headers */
-  .header-spacer { height: 82px; }
+  /* Spacer - will be set dynamically by JS, this is fallback */
+  .header-spacer { height: 90px; }
 
   @media(max-width:768px){
-    .nav-bar { padding: 0 16px; }
-    .header-spacer { height: 120px; }
+    .ai-banner { font-size: 11px; padding: 6px 12px; letter-spacing: 0; }
+    .nav-bar { padding: 0 12px; }
+    .nav-bar a { padding: 10px 12px; font-size: 12px; }
+    .header-spacer { height: 110px; }
   }
 
   /* Hero */
@@ -569,10 +574,14 @@ for(var nl=0;nl<allNavLinks.length;nl++){
 // Set spacer height dynamically
 function updateSpacer(){
   var sp=document.querySelector(".header-spacer");
-  if(sp&&headerEl) sp.style.height=headerEl.offsetHeight+"px";
+  if(sp&&headerEl) sp.style.height=(headerEl.offsetHeight+4)+"px";
 }
 updateSpacer();
 window.addEventListener("resize",updateSpacer);
+// Re-measure after fonts load (may change banner line-wrap)
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(updateSpacer);
+setTimeout(updateSpacer,500);
+setTimeout(updateSpacer,1500);
 
 })();
 </script>
