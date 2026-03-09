@@ -47,7 +47,7 @@
   .ai-banner {
     background: var(--red); color: white; text-align: center;
     padding: 10px 24px; font-size: 13px; font-weight: 700;
-    position: sticky; top: 0; z-index: 100;
+    position: sticky; top: 0; z-index: 9999;
     letter-spacing: 1px;
   }
   .ai-banner a { color: #FFD700; text-decoration: underline; margin-left: 8px; }
@@ -56,14 +56,16 @@
   .nav-bar {
     background: rgba(22,33,62,0.95); backdrop-filter: blur(10px);
     padding: 0 48px; display: flex; align-items: center;
-    gap: 4px; overflow-x: auto; position: sticky; top: 37px; z-index: 99;
+    gap: 4px; overflow-x: auto; position: sticky; top: 37px; z-index: 9998;
     border-bottom: 1px solid rgba(196,152,90,0.2);
   }
   .nav-item {
     padding: 14px 18px; font-size: 13px; color: rgba(255,255,255,0.5);
     cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent;
     transition: all 0.3s ease; font-weight: 500;
+    -webkit-user-select: none; user-select: none;
   }
+  .nav-item { text-decoration: none; display: inline-block; }
   .nav-item:hover { color: rgba(255,255,255,0.8); }
   .nav-item.active { color: var(--gold); border-bottom-color: var(--gold); }
 
@@ -367,7 +369,8 @@
     opacity: 0; transform: translateY(30px);
     transition: opacity 0.8s ease, transform 0.8s ease;
   }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal.visible { opacity: 1 !important; transform: translateY(0) !important; }
+  .no-observer .reveal { opacity: 1 !important; transform: translateY(0) !important; }
 
   /* Animations */
   @keyframes fadeUp {
@@ -410,12 +413,12 @@
 
 <!-- 导航栏 -->
 <div class="nav-bar" id="navBar">
-  <div class="nav-item active" onclick="scrollToSection('hero')">首页</div>
-  <div class="nav-item" onclick="scrollToSection('overview')">数据总览</div>
-  <div class="nav-item" onclick="scrollToSection('chapters')">六大篇章</div>
-  <div class="nav-item" onclick="scrollToSection('cases')">典型案例</div>
-  <div class="nav-item" onclick="scrollToSection('charts')">数据图鉴</div>
-  <div class="nav-item" onclick="scrollToSection('outlook')">2026展望</div>
+  <a class="nav-item active" href="javascript:void(0)" data-target="hero">首页</a>
+  <a class="nav-item" href="javascript:void(0)" data-target="overview">数据总览</a>
+  <a class="nav-item" href="javascript:void(0)" data-target="chapters">六大篇章</a>
+  <a class="nav-item" href="javascript:void(0)" data-target="cases">典型案例</a>
+  <a class="nav-item" href="javascript:void(0)" data-target="charts">数据图鉴</a>
+  <a class="nav-item" href="javascript:void(0)" data-target="outlook">2026展望</a>
 </div>
 
 <!-- Hero -->
@@ -728,7 +731,7 @@ function renderChapters() {
   var html = '';
   chapters.forEach(function(ch, i) {
     var tagsHtml = ch.tags.map(function(t) { return '<span class="chapter-tag">' + t + '</span>'; }).join('');
-    html += '<div class="chapter-card ' + ch.cls + ' reveal" onclick="openChapter(' + i + ')" style="animation-delay:' + (i * 0.08) + 's">'
+    html += '<div class="chapter-card ' + ch.cls + ' reveal" data-chapter="' + i + '" style="animation-delay:' + (i * 0.08) + 's">'
       + '<div class="chapter-card-num">' + ch.num + '</div>'
       + '<div class="chapter-card-title">' + ch.title + '</div>'
       + '<div class="chapter-card-desc">' + ch.desc + '</div>'
@@ -913,29 +916,61 @@ function closeModal(e) {
 /* ========== SCROLL REVEAL & NAV ========== */
 
 function initScrollReveal() {
+  if (!('IntersectionObserver' in window)) {
+    // Fallback: show everything immediately
+    document.body.classList.add('no-observer');
+    document.querySelectorAll('.bar-fill').forEach(function(bar) {
+      var w = bar.getAttribute('data-width');
+      if (w) bar.style.width = w;
+    });
+    return;
+  }
+
   var observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
         // Animate bars
         var bars = entry.target.querySelectorAll('.bar-fill');
+        if (bars.length === 0 && entry.target.classList.contains('bar-fill')) {
+          var w = entry.target.getAttribute('data-width');
+          if (w) entry.target.style.width = w;
+        }
         bars.forEach(function(bar) {
           var w = bar.getAttribute('data-width');
           if (w) bar.style.width = w;
         });
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
 
   document.querySelectorAll('.reveal, .chart-container').forEach(function(el) {
     observer.observe(el);
   });
+
+  // Safety fallback: after 2 seconds, show everything that's still hidden
+  setTimeout(function() {
+    document.querySelectorAll('.reveal:not(.visible)').forEach(function(el) {
+      var rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight + 200) {
+        el.classList.add('visible');
+      }
+    });
+    document.querySelectorAll('.bar-fill').forEach(function(bar) {
+      if (!bar.style.width || bar.style.width === '0px' || bar.style.width === '0') {
+        var w = bar.getAttribute('data-width');
+        if (w) bar.style.width = w;
+      }
+    });
+  }, 2000);
 }
 
 function initNavHighlight() {
   var sections = ['hero', 'overview', 'chapters', 'cases', 'charts', 'outlook'];
   var navItems = document.querySelectorAll('.nav-item');
   
+  if (!('IntersectionObserver' in window)) return;
+
   var observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
       if (entry.isIntersecting) {
@@ -945,7 +980,7 @@ function initNavHighlight() {
         });
       }
     });
-  }, { threshold: 0.3 });
+  }, { threshold: 0.2 });
 
   sections.forEach(function(id) {
     var el = document.getElementById(id);
@@ -955,10 +990,21 @@ function initNavHighlight() {
 
 function scrollToSection(id) {
   var el = document.getElementById(id);
-  if (el) {
-    var offset = el.getBoundingClientRect().top + window.pageYOffset - 90;
-    window.scrollTo({ top: offset, behavior: 'smooth' });
-  }
+  if (!el) return;
+  var bannerH = document.querySelector('.ai-banner') ? document.querySelector('.ai-banner').offsetHeight : 0;
+  var navH = document.querySelector('.nav-bar') ? document.querySelector('.nav-bar').offsetHeight : 0;
+  var offset = el.getBoundingClientRect().top + window.pageYOffset - bannerH - navH - 8;
+  window.scrollTo({ top: Math.max(0, offset), behavior: 'smooth' });
+
+  // Force reveal all elements in that section after scrolling
+  setTimeout(function() {
+    el.querySelectorAll('.reveal').forEach(function(r) { r.classList.add('visible'); });
+    // Also trigger bars
+    el.querySelectorAll('.bar-fill').forEach(function(bar) {
+      var w = bar.getAttribute('data-width');
+      if (w) bar.style.width = w;
+    });
+  }, 400);
 }
 
 /* ========== INIT ========== */
@@ -974,6 +1020,34 @@ function init() {
   renderExecStats();
   initScrollReveal();
   initNavHighlight();
+
+  // Bind chapter card clicks via event delegation
+  var chapterGrid = document.getElementById('chapterGrid');
+  if (chapterGrid) {
+    chapterGrid.addEventListener('click', function(e) {
+      var card = e.target.closest('.chapter-card');
+      if (!card) return;
+      var idx = parseInt(card.getAttribute('data-chapter'), 10);
+      if (!isNaN(idx)) openChapter(idx);
+    });
+  }
+
+  // Bind nav clicks via event delegation
+  var navBar = document.getElementById('navBar');
+  if (navBar) {
+    navBar.addEventListener('click', function(e) {
+      var item = e.target.closest('.nav-item');
+      if (!item) return;
+      e.preventDefault();
+      var target = item.getAttribute('data-target');
+      if (target) {
+        // Update active state
+        navBar.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); });
+        item.classList.add('active');
+        scrollToSection(target);
+      }
+    });
+  }
 
   // Animate bars on page load for visible ones
   setTimeout(function() {
