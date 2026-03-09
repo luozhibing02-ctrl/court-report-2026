@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>最高人民法院工作报告 · 交互版 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --cream: #F5F0E8;
+    --warm: #EDE7DB;
+    --navy: #16213e;
+    --navy-light: #1a2744;
+    --red: #C53D43;
+    --red-light: #E8D5D0;
+    --gold: #C4985A;
+    --gold-light: #F0E6D3;
+    --blue: #2C5F8A;
+    --blue-light: #D4E3F0;
+    --brown: #5C4033;
+    --gray: #6B7280;
+    --emerald: #047857;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--cream); }
+
+  .dashboard {
+    background: var(--cream);
+    min-height: 100vh;
+    font-family: 'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif;
+    color: var(--ink);
+    overflow-x: hidden;
+    position: relative;
+  }
+  .dashboard::before {
+    content: '';
+    position: fixed; inset: 0; opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0;
+  }
+  .dashboard > * { position: relative; z-index: 1; }
+
+  /* AI Banner */
+  .ai-banner {
+    background: var(--red); color: white; text-align: center;
+    padding: 10px 24px; font-size: 13px; font-weight: 700;
+    position: sticky; top: 0; z-index: 100;
+    letter-spacing: 1px;
+  }
+  .ai-banner a { color: #FFD700; text-decoration: underline; margin-left: 8px; }
+
+  /* Navigation */
+  .nav-bar {
+    background: rgba(22,33,62,0.95); backdrop-filter: blur(10px);
+    padding: 0 48px; display: flex; align-items: center;
+    gap: 4px; overflow-x: auto; position: sticky; top: 37px; z-index: 99;
+    border-bottom: 1px solid rgba(196,152,90,0.2);
+  }
+  .nav-item {
+    padding: 14px 18px; font-size: 13px; color: rgba(255,255,255,0.5);
+    cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent;
+    transition: all 0.3s ease; font-weight: 500;
+  }
+  .nav-item:hover { color: rgba(255,255,255,0.8); }
+  .nav-item.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* Hero */
+  .hero {
+    padding: 72px 48px 56px;
+    background: linear-gradient(170deg, #0f1729 0%, #16213e 40%, #1a2744 100%);
+    color: var(--cream); position: relative; overflow: hidden;
+  }
+  .hero::after {
+    content: ''; position: absolute; top: -50%; right: -15%;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(196,152,90,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::before {
+    content: ''; position: absolute; bottom: -30%; left: -10%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(44,95,138,0.15) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(196,152,90,0.15); border: 1px solid rgba(196,152,90,0.3);
+    padding: 6px 16px; border-radius: 20px; font-size: 12px;
+    color: var(--gold); margin-bottom: 24px;
+    opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+  .hero-badge-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--gold);
+    animation: pulse 2s infinite;
+  }
+  .hero-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(28px, 4.5vw, 52px); font-weight: 900;
+    line-height: 1.25; margin-bottom: 16px;
+    opacity: 0; animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+  .hero-title .accent { color: var(--gold); }
+  .hero-subtitle {
+    font-size: 15px; line-height: 1.9; color: rgba(245,240,232,0.55);
+    max-width: 720px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+  .hero-meta {
+    margin-top: 12px; font-size: 13px; color: rgba(245,240,232,0.35);
+    opacity: 0; animation: fadeUp 0.8s ease forwards 0.7s;
+  }
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 32px; margin-top: 48px; padding-top: 36px;
+    border-top: 1px solid rgba(196,152,90,0.15);
+    opacity: 0; animation: fadeUp 0.8s ease forwards 0.8s;
+  }
+  .hero-stat-value {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 32px; font-weight: 900; color: var(--gold);
+  }
+  .hero-stat-value .unit { font-size: 14px; font-weight: 400; margin-left: 3px; opacity: 0.7; }
+  .hero-stat-label { font-size: 12px; color: rgba(245,240,232,0.45); margin-top: 4px; line-height: 1.5; }
+
+  /* Sections */
+  .section { padding: 56px 48px; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 36px; }
+  .section-num {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 48px; font-weight: 900; color: var(--navy); opacity: 0.1; line-height: 1;
+  }
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 24px; font-weight: 700; color: var(--ink); }
+  .section-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--gold) 0%, transparent 100%); margin-left: 8px; }
+
+  /* Stat Grid */
+  .stat-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .stat-card {
+    background: white; border-radius: 14px; padding: 24px;
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: default;
+  }
+  .stat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  .stat-card-icon {
+    width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    font-size: 16px; margin-bottom: 14px;
+  }
+  .stat-card-value {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 28px; font-weight: 900; color: var(--ink); margin-bottom: 4px;
+  }
+  .stat-card-value .unit { font-size: 14px; font-weight: 400; color: var(--gray); margin-left: 2px; }
+  .stat-card-label { font-size: 13px; color: var(--gray); line-height: 1.5; }
+  .stat-card-change {
+    display: inline-block; margin-top: 8px; padding: 2px 8px; border-radius: 6px;
+    font-size: 11px; font-weight: 600;
+  }
+  .stat-card-change.up { background: #FEE2E2; color: #DC2626; }
+  .stat-card-change.down { background: #D1FAE5; color: #047857; }
+
+  /* Chapter Cards */
+  .chapter-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 20px;
+  }
+  .chapter-card {
+    background: white; border-radius: 16px; padding: 28px;
+    border: 1px solid rgba(0,0,0,0.05); cursor: pointer;
+    transition: all 0.35s ease; position: relative; overflow: hidden;
+  }
+  .chapter-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 4px; height: 100%; border-radius: 4px 0 0 4px;
+    transition: width 0.3s ease;
+  }
+  .chapter-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
+  .chapter-card:hover::before { width: 6px; }
+  .chapter-card-num {
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+    font-size: 42px; opacity: 0.06; position: absolute; top: 12px; right: 20px; line-height: 1;
+  }
+  .chapter-card-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 18px; font-weight: 700; margin-bottom: 12px; line-height: 1.5;
+    padding-right: 40px;
+  }
+  .chapter-card-desc {
+    font-size: 13px; color: var(--gray); line-height: 1.8; margin-bottom: 16px;
+  }
+  .chapter-card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chapter-tag {
+    padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;
+    background: var(--warm);
+  }
+  .c1::before { background: #C53D43; } .c1 .chapter-tag { color: #C53D43; }
+  .c2::before { background: #2C5F8A; } .c2 .chapter-tag { color: #2C5F8A; }
+  .c3::before { background: #047857; } .c3 .chapter-tag { color: #047857; }
+  .c4::before { background: #7C3AED; } .c4 .chapter-tag { color: #7C3AED; }
+  .c5::before { background: #D97706; } .c5 .chapter-tag { color: #D97706; }
+  .c6::before { background: #0891B2; } .c6 .chapter-tag { color: #0891B2; }
+
+  /* Chapter Detail Modal */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200;
+    display: none; align-items: center; justify-content: center;
+    backdrop-filter: blur(4px); padding: 24px;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: white; border-radius: 20px; max-width: 760px; width: 100%;
+    max-height: 85vh; overflow-y: auto; padding: 40px;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.2);
+    animation: modalIn 0.3s ease;
+  }
+  @keyframes modalIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .modal-close {
+    float: right; width: 36px; height: 36px; border-radius: 50%;
+    border: none; background: var(--warm); cursor: pointer; font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .modal-close:hover { background: var(--red-light); }
+  .modal-chapter-num {
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+    font-size: 14px; color: var(--gold); letter-spacing: 3px; margin-bottom: 8px;
+  }
+  .modal-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px; font-weight: 700; margin-bottom: 24px; line-height: 1.5;
+  }
+  .modal-section { margin-bottom: 20px; }
+  .modal-section-title {
+    font-size: 15px; font-weight: 700; margin-bottom: 8px;
+    padding-left: 12px; border-left: 3px solid var(--gold);
+  }
+  .modal-section-text {
+    font-size: 14px; color: #374151; line-height: 2; text-align: justify;
+  }
+  .modal-stat-row {
+    display: flex; flex-wrap: wrap; gap: 12px; margin: 12px 0;
+  }
+  .modal-stat-chip {
+    padding: 8px 14px; border-radius: 10px; background: var(--warm);
+    font-size: 13px; display: flex; align-items: baseline; gap: 6px;
+  }
+  .modal-stat-chip strong {
+    font-family: 'Noto Serif SC', serif; font-size: 18px; color: var(--navy);
+  }
+
+  /* Case Cards */
+  .case-scroll {
+    display: flex; gap: 20px; overflow-x: auto; padding-bottom: 16px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .case-scroll::-webkit-scrollbar { height: 6px; }
+  .case-scroll::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 3px; }
+  .case-card {
+    min-width: 320px; max-width: 360px; background: white;
+    border-radius: 16px; padding: 24px; flex-shrink: 0;
+    border: 1px solid rgba(0,0,0,0.05); scroll-snap-align: start;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .case-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  .case-type {
+    display: inline-block; padding: 3px 10px; border-radius: 6px;
+    font-size: 11px; font-weight: 700; margin-bottom: 12px;
+  }
+  .case-type.criminal { background: #FEE2E2; color: #DC2626; }
+  .case-type.civil { background: #DBEAFE; color: #1D4ED8; }
+  .case-type.ip { background: #F3E8FF; color: #7C3AED; }
+  .case-type.env { background: #D1FAE5; color: #047857; }
+  .case-type.exec { background: #FEF3C7; color: #D97706; }
+  .case-type.foreign { background: #E0E7FF; color: #4338CA; }
+  .case-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 15px; font-weight: 700; margin-bottom: 10px; line-height: 1.6;
+  }
+  .case-desc { font-size: 13px; color: var(--gray); line-height: 1.8; }
+  .case-result {
+    margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(0,0,0,0.06);
+    font-size: 12px; color: var(--red); font-weight: 600;
+  }
+
+  /* SVG Chart */
+  .chart-container {
+    background: white; border-radius: 16px; padding: 28px;
+    border: 1px solid rgba(0,0,0,0.05); margin-bottom: 20px;
+  }
+  .chart-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 16px; font-weight: 700; margin-bottom: 20px;
+  }
+  .chart-subtitle { font-size: 12px; color: var(--gray); margin-top: -14px; margin-bottom: 16px; }
+  .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  /* Bar Chart */
+  .bar-chart { display: flex; flex-direction: column; gap: 12px; }
+  .bar-row { display: flex; align-items: center; gap: 12px; }
+  .bar-label { font-size: 12px; color: var(--gray); min-width: 100px; text-align: right; }
+  .bar-track { flex: 1; height: 28px; background: var(--warm); border-radius: 6px; overflow: hidden; position: relative; }
+  .bar-fill {
+    height: 100%; border-radius: 6px; display: flex; align-items: center;
+    padding-left: 10px; font-size: 12px; font-weight: 700; color: white;
+    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 0;
+  }
+  .bar-fill.animated { /* width set by JS */ }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 32px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 11px; top: 0; bottom: 0;
+    width: 2px; background: linear-gradient(to bottom, var(--gold), var(--warm));
+  }
+  .timeline-item { position: relative; margin-bottom: 28px; }
+  .timeline-dot {
+    position: absolute; left: -32px; top: 4px;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: white; border: 3px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .timeline-dot-inner { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
+  .timeline-year { font-family: 'Noto Serif SC', serif; font-size: 14px; font-weight: 700; color: var(--gold); margin-bottom: 4px; }
+  .timeline-text { font-size: 13px; color: var(--gray); line-height: 1.7; }
+
+  /* 2026 Outlook */
+  .outlook-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;
+  }
+  .outlook-card {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+    border-radius: 16px; padding: 28px; color: var(--cream);
+  }
+  .outlook-num {
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+    font-size: 48px; color: var(--gold); opacity: 0.2; line-height: 1; margin-bottom: 8px;
+  }
+  .outlook-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 17px; font-weight: 700; margin-bottom: 12px;
+  }
+  .outlook-items { list-style: none; }
+  .outlook-items li {
+    font-size: 13px; color: rgba(245,240,232,0.65); line-height: 1.8;
+    padding-left: 16px; position: relative; margin-bottom: 4px;
+  }
+  .outlook-items li::before {
+    content: ''; position: absolute; left: 0; top: 10px;
+    width: 6px; height: 6px; border-radius: 50%; background: var(--gold); opacity: 0.5;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 40px 48px; background: var(--navy); color: rgba(245,240,232,0.3);
+    text-align: center; font-size: 12px; line-height: 2;
+  }
+  .footer a { color: var(--gold); text-decoration: none; }
+
+  /* Scroll Reveal */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .section { padding: 36px 20px; }
+    .hero { padding: 48px 20px 36px; }
+    .nav-bar { padding: 0 16px; }
+    .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .chapter-grid { grid-template-columns: 1fr; }
+    .chart-grid { grid-template-columns: 1fr; }
+    .modal { padding: 24px; margin: 12px; }
+    .outlook-grid { grid-template-columns: 1fr; }
+    .stat-card-value { font-size: 22px; }
+    .hero-stat-value { font-size: 26px; }
+  }
+  @media (max-width: 480px) {
+    .stat-grid { grid-template-columns: 1fr; }
+    .hero-stats { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="dashboard">
+
+<!-- AI声明 -->
+<div class="ai-banner">
+  本页面内容全部由AI自动生成，数据来源于最高人民法院官方报告
+  <a href="https://www.court.gov.cn/xinshidai/xiangqing/492921.html" target="_blank">查看官方原文</a>
+</div>
+
+<!-- 导航栏 -->
+<div class="nav-bar" id="navBar">
+  <div class="nav-item active" onclick="scrollToSection('hero')">首页</div>
+  <div class="nav-item" onclick="scrollToSection('overview')">数据总览</div>
+  <div class="nav-item" onclick="scrollToSection('chapters')">六大篇章</div>
+  <div class="nav-item" onclick="scrollToSection('cases')">典型案例</div>
+  <div class="nav-item" onclick="scrollToSection('charts')">数据图鉴</div>
+  <div class="nav-item" onclick="scrollToSection('outlook')">2026展望</div>
+</div>
+
+<!-- Hero -->
+<div class="hero" id="hero">
+  <div class="hero-badge">
+    <span class="hero-badge-dot"></span>
+    第十四届全国人民代表大会第四次会议
+  </div>
+  <h1 class="hero-title">
+    最高人民法院<br/><span class="accent">工作报告</span>
+  </h1>
+  <p class="hero-subtitle">
+    2026年3月9日，最高人民法院院长张军向大会报告工作。2025年，党中央制发《关于加强新时代审判工作的意见》，在党领导人民司法的历史上具有里程碑意义。
+  </p>
+  <p class="hero-meta">报告人：最高人民法院院长 张军 ｜ 2026年3月9日</p>
+  <div class="hero-stats">
+    <div>
+      <div class="hero-stat-value">3748.6<span class="unit">万件</span></div>
+      <div class="hero-stat-label">全国法院受理案件总量</div>
+    </div>
+    <div>
+      <div class="hero-stat-value">3620<span class="unit">万件</span></div>
+      <div class="hero-stat-label">审结执结案件总量</div>
+    </div>
+    <div>
+      <div class="hero-stat-value">2.91<span class="unit">万件</span></div>
+      <div class="hero-stat-label">最高法收案</div>
+    </div>
+    <div>
+      <div class="hero-stat-value">3.19<span class="unit">万件</span></div>
+      <div class="hero-stat-label">最高法结案</div>
+    </div>
+  </div>
+</div>
+
+<!-- 数据总览 -->
+<div class="section" id="overview">
+  <div class="section-header reveal">
+    <span class="section-num">01</span>
+    <span class="section-title">数据总览</span>
+    <span class="section-line"></span>
+  </div>
+  <div class="stat-grid" id="statGrid">
+    <!-- JS 填充 -->
+  </div>
+</div>
+
+<!-- 六大篇章 -->
+<div class="section" id="chapters" style="background: var(--warm);">
+  <div class="section-header reveal">
+    <span class="section-num">02</span>
+    <span class="section-title">六大篇章 · 2025工作回顾</span>
+    <span class="section-line"></span>
+  </div>
+  <div class="chapter-grid" id="chapterGrid">
+    <!-- JS 填充 -->
+  </div>
+</div>
+
+<!-- 典型案例 -->
+<div class="section" id="cases">
+  <div class="section-header reveal">
+    <span class="section-num">03</span>
+    <span class="section-title">典型案例聚焦</span>
+    <span class="section-line"></span>
+  </div>
+  <p style="font-size:13px; color:var(--gray); margin-bottom:24px; margin-top:-16px;" class="reveal">← 左右滑动查看更多案例 →</p>
+  <div class="case-scroll" id="caseScroll">
+    <!-- JS 填充 -->
+  </div>
+</div>
+
+<!-- 数据图鉴 -->
+<div class="section" id="charts" style="background: var(--warm);">
+  <div class="section-header reveal">
+    <span class="section-num">04</span>
+    <span class="section-title">数据图鉴</span>
+    <span class="section-line"></span>
+  </div>
+  <div class="chart-grid">
+    <!-- 醉驾治理趋势 -->
+    <div class="chart-container reveal">
+      <div class="chart-title">醉驾治理成效</div>
+      <div class="chart-subtitle">判刑人数持续下降（万人）</div>
+      <div id="drunkChart" style="height:220px;"></div>
+    </div>
+    <!-- 案件类型分布 -->
+    <div class="chart-container reveal">
+      <div class="chart-title">重点案件类型分布</div>
+      <div class="chart-subtitle">2025年度审结案件（万件）</div>
+      <div class="bar-chart" id="caseTypeChart"></div>
+    </div>
+    <!-- 涉外审判 -->
+    <div class="chart-container reveal">
+      <div class="chart-title">"十四五"涉外审判增长</div>
+      <div class="chart-subtitle">较"十三五"增长幅度（%）</div>
+      <div class="bar-chart" id="foreignChart"></div>
+    </div>
+    <!-- 执行到位 -->
+    <div class="chart-container reveal">
+      <div class="chart-title">执行工作成效</div>
+      <div class="chart-subtitle">2025年度关键执行数据</div>
+      <div id="execStats" style="padding-top: 8px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 2026展望 -->
+<div class="section" id="outlook">
+  <div class="section-header reveal">
+    <span class="section-num">05</span>
+    <span class="section-title">2026年工作安排</span>
+    <span class="section-line"></span>
+  </div>
+  <div class="outlook-grid" id="outlookGrid">
+    <!-- JS 填充 -->
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <p>数据来源：<a href="https://www.court.gov.cn/xinshidai/xiangqing/492921.html" target="_blank">最高人民法院工作报告（全文）</a></p>
+  <p>报告时间：2026年3月9日 第十四届全国人民代表大会第四次会议</p>
+  <p style="margin-top:8px;">本页面内容全部由AI自动生成，仅供参考，请以官方发布文本为准</p>
+</div>
+
+</div><!-- end dashboard -->
+
+<!-- Modal -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modalContent" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="document.getElementById('modalOverlay').classList.remove('show')">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+/* ========== DATA ========== */
+
+var overviewStats = [
+  { icon: "⚖️", bg: "#FEE2E2", value: "4.6", unit: "万件", label: "严重暴力犯罪案件", change: "-7.3%", dir: "down" },
+  { icon: "🛡️", bg: "#DBEAFE", value: "3.6", unit: "万件", label: "职务犯罪案件", change: "+22.4%", dir: "up" },
+  { icon: "📱", bg: "#F3E8FF", value: "4.1", unit: "万件", label: "电信网络诈骗案件", change: "+1.2%", dir: "up" },
+  { icon: "💡", bg: "#FEF3C7", value: "49.6", unit: "万件", label: "知识产权案件", change: "+0.3%", dir: "up" },
+  { icon: "🏭", bg: "#D1FAE5", value: "3.2", unit: "万件", label: "破产案件", change: "+5.1%", dir: "up" },
+  { icon: "💰", bg: "#FFE4E6", value: "270.7", unit: "万件", label: "金融案件", change: "+1.8%", dir: "up" },
+  { icon: "👷", bg: "#E0E7FF", value: "67.4", unit: "万件", label: "劳动争议案件", change: "+9.8%", dir: "up" },
+  { icon: "🌍", bg: "#CCFBF1", value: "15.9", unit: "万件", label: ""十四五"涉外案件", change: "+66%", dir: "up" },
+  { icon: "👦", bg: "#FDE68A", value: "4", unit: "万件", label: "侵害未成年人犯罪", change: "-1.8%", dir: "down" },
+  { icon: "💸", bg: "#E8D5D0", value: "181.4", unit: "亿元", label: "追缴违法所得", change: "", dir: "" },
+  { icon: "🏦", bg: "#DBEAFE", value: "2.2", unit: "万亿元", label: "执行到位金额", change: "", dir: "" },
+  { icon: "❤️", bg: "#FCE7F3", value: "8.5", unit: "亿元", label: "司法救助金发放", change: "", dir: "" },
+];
+
+var chapters = [
+  {
+    num: "一", cls: "c1",
+    title: "以高质量司法保障高水平安全",
+    desc: "坚持总体国家安全观，全面准确贯彻宽严相济刑事政策，依法有力防风险、保安全、护稳定。",
+    tags: ["国家安全", "公共安全", "反腐败", "新型犯罪", "人权保障"],
+    sections: [
+      { title: "捍卫国家安全", text: "深化反颠覆反分裂反恐怖反邪教斗争，严惩"台独"顽固分子。对煽动分裂国家的李延贺依法定罪判刑。依法惩治向境外走私稀土、非法出售亲本种子等犯罪。" },
+      { title: "维护公共安全", text: "审结故意杀人等严重暴力犯罪案件4.6万件5.3万人，同比下降7.3%。醉驾判刑由2023年32万降至2025年23.1万。对缅北"四大家族"16名主犯依法判处死刑立即执行。" },
+      { title: "惩治腐败犯罪", text: "审结贪污贿赂等职务犯罪案件3.6万件4万人，同比增长22.4%，依法惩处唐仁健、罗保铭等57名原中管干部。白天辉被判处并执行死刑。追缴、没收违法所得181.4亿元。" },
+      { title: "惩治新型犯罪", text: "过去五年审结危害网络安全犯罪案件9326件2.2万人，较上一个五年增长158.5%。帮信犯罪同比下降62%。明确醉酒后启用辅助驾驶仍应承担刑事责任。" },
+      { title: "人权司法保障", text: "依法宣告294人无罪，准许撤回起诉1235人。审结国家赔偿案件6865件。向3.8万名涉诉困难群众发放司法救助金8.5亿元。" }
+    ],
+    stats: [
+      { val: "4.6万", label: "暴力犯罪案件" }, { val: "3.6万", label: "职务犯罪案件" },
+      { val: "57人", label: "原中管干部" }, { val: "294人", label: "宣告无罪" },
+      { val: "181.4亿", label: "追缴违法所得" }, { val: "8.5亿", label: "司法救助金" }
+    ]
+  },
+  {
+    num: "二", cls: "c2",
+    title: "以高质量司法服务高质量发展",
+    desc: "完整准确全面贯彻新发展理念，维护公平公正的市场环境，助力高质量发展。",
+    tags: ["知识产权", "统一大市场", "营商环境", "数字经济", "绿色转型"],
+    sections: [
+      { title: "科技自立自强", text: "审结知识产权案件49.6万件。某数控机床案判令3倍惩罚性赔偿3.8亿元。两家低空经济企业以"先许可使用、后协商费用"促成和解。AI服务出差错但研发者善尽注意义务，法院认定不构成侵权。" },
+      { title: "统一大市场建设", text: "认定构成垄断案件27件。审理两大电商"二选一"案。助力1481家企业重获新生，推动2.9万家"僵尸企业"出清，化解债务4万亿元，盘活资产1.1万亿元。" },
+      { title: "营商环境优化", text: "出台贯彻民营经济促进法25条举措。在709起案件中帮助中小企业收回账款19亿元。再审改判6家企业、12名经营者无罪。" },
+      { title: "数字经济与绿色转型", text: "审结涉数据纠纷908件（+25.6%），个人信息保护案件915件（+65%）。生态环境刑事案件2.4万件，涉碳案件115件（+6.5%）。" }
+    ],
+    stats: [
+      { val: "49.6万", label: "知识产权案件" }, { val: "3.8亿", label: "最高惩罚性赔偿" },
+      { val: "4万亿", label: "化解债务" }, { val: "1481家", label: "企业重获新生" },
+      { val: "27件", label: "垄断案件" }, { val: "908件", label: "数据权属纠纷" }
+    ]
+  },
+  {
+    num: "三", cls: "c3",
+    title: "以高质量司法守护高品质生活",
+    desc: "人民司法为人民，公正司法为民解忧，保障和增进民生福祉。",
+    tags: ["婚姻家庭", "劳动权益", "未成年人", "执行难", "消费维权"],
+    sections: [
+      { title: "回应群众诉求", text: "民法典施行五年：物权纠纷175.2万件，人格权纠纷96万件，侵权责任纠纷556.6万件。人身安全保护令3.3万件，年均增长20%。制定预付式消费司法解释整治\"卷款跑路\"。" },
+      { title: "劳动权益保护", text: "审结劳动争议案件67.4万件（+9.8%），帮助追回农民工工资241.2亿元。依法规制不合理考核辞退：某员工因闭眼小憩3分钟被辞退，法院认定违法解除。" },
+      { title: "未成年人保护", text: "审结侵害未成年人犯罪案件4万件4.4万人。对某14岁学生依法顶格判处无期徒刑。撤销997名不适格父母监护人资格。" },
+      { title: "解决执行难", text: "执行到位2.2万亿元。交叉执行案件26.8万件。判处4461人拒不执行判决罪。失信名单人数继2024年首降后再降5.2%。" }
+    ],
+    stats: [
+      { val: "67.4万", label: "劳动争议案件" }, { val: "241.2亿", label: "追回农民工工资" },
+      { val: "2.2万亿", label: "执行到位" }, { val: "4万件", label: "侵害未成年人案件" },
+      { val: "997名", label: "撤销不适格监护" }, { val: "4461人", label: "拒执罪" }
+    ]
+  },
+  {
+    num: "四", cls: "c4",
+    title: "以高质量司法助力高水平开放",
+    desc: "统筹推进国内法治和涉外法治，提升涉外审判质效和公信力。",
+    tags: ["涉外审判", "国际公约", "仲裁", "营商环境", "全球治理"],
+    sections: [
+      { title: "维护国家利益", text: ""十四五"涉外案件15.9万件，较"十三五"增长66%。贯彻反外国制裁法反制"长臂管辖"。某外国公司以制裁为由拒签提单，法院出具强制令。" },
+      { title: "平等保护中外当事人", text: "严格遵守WTO国民待遇原则。世界银行营商环境评估，北京、上海法院公正性、认可度全球最优。" },
+      { title: "打造纠纷解决优选地", text: "上海海事法院当事人约定管辖案件由2021年361件增至2025年712件。依法承认和执行外国判决972件，同比增长2倍。" },
+      { title: "参与全球治理", text: "《可转让货物单证公约》获联大通过。《北京船舶司法出售公约》正式生效。联合国收录我国法院案例210件。培训38个国家419名法官。" }
+    ],
+    stats: [
+      { val: "15.9万", label: "涉外案件(十四五)" }, { val: "+66%", label: "较十三五增长" },
+      { val: "972件", label: "承认执行外国判决" }, { val: "210件", label: "联合国收录案例" },
+      { val: "712件", label: "上海海事约定管辖" }, { val: "419名", label: "培训境外法官" }
+    ]
+  },
+  {
+    num: "五", cls: "c5",
+    title: "规范司法权力运行",
+    desc: "突出政治统领，强化制约监督，锻造过硬队伍，保障审判权依法规范运行。",
+    tags: ["司法责任制", "审判管理", "数字法院", "从严治院", "基层建设"],
+    sections: [
+      { title: "审判监督管理", text: "院庭长阅核案件1416.3万件。提级审理3200件（+8.5%）。清理长期未结案件10176件，积案再降12.6%。上网公布裁判文书1097.9万份（+13.3%）。" },
+      { title: "统一裁判标准", text: "制发司法解释15件、指导性案例20件、典型案例641件。案例库入库5300余件，法答网答疑89万余条。上诉率下降2.4个百分点。" },
+      { title: "从严管党治院", text: "对8个高级人民法院开展巡查。最高法9名干警、地方法院995名干警因违纪违法被查处。" },
+      { title: "基层基础建设", text: "调配政法专项编制1353个。3700多名退休法官贡献"银发力量"。100个"枫桥式人民法庭"示范引领。" }
+    ],
+    stats: [
+      { val: "1416.3万", label: "院庭长阅核案件" }, { val: "1097.9万", label: "上网裁判文书" },
+      { val: "5300+", label: "案例库入库" }, { val: "89万+", label: "法答网答疑" },
+      { val: "1004名", label: "违纪违法干警查处" }, { val: "3700+", label: "退休法官调解" }
+    ]
+  },
+  {
+    num: "六", cls: "c6",
+    title: "自觉接受各方面监督",
+    desc: "深入践行全过程人民民主，完善接受监督、吸纳民意、汇集民智工作机制。",
+    tags: ["人大监督", "民主监督", "检察监督", "社会监督"],
+    sections: [
+      { title: "接受人大监督", text: "办理代表建议469件、审议意见4072条、日常建议247件。邀请人大代表视察法院等3730人次。" },
+      { title: "接受民主监督", text: "办理全国政协提案185件。与全国工商联等举办第六届民营经济法治建设大会。" },
+      { title: "接受检察监督", text: "审理抗诉案件8728件，依法改判3992件。会同最高检开展执行工作监督。" },
+      { title: "接受社会监督", text: "公开听证申诉信访案件1.6万件（+63.8%）。34万名人民陪审员发挥更大作用。" }
+    ],
+    stats: [
+      { val: "469件", label: "代表建议" }, { val: "4072条", label: "审议意见" },
+      { val: "8728件", label: "抗诉案件" }, { val: "34万", label: "人民陪审员" },
+      { val: "1.6万", label: "听证案件" }, { val: "3730人次", label: "代表视察" }
+    ]
+  }
+];
+
+var cases = [
+  { type: "criminal", typeLabel: "刑事", title: "缅北"四大家族"电诈集团案", desc: "缅北"四大家族"犯罪集团长期组织电信网络诈骗，严重侵害我国公民权益。", result: "16名主犯依法判处死刑立即执行" },
+  { type: "criminal", typeLabel: "刑事", title: "白天辉受贿案", desc: "受贿数额特别巨大，给国家和人民利益造成特别重大损失。", result: "依法判处并执行死刑" },
+  { type: "criminal", typeLabel: "刑事", title: ""闪婚闪离"骗婚案", desc: "马某组织多名女子"闪婚闪离"，骗取15个家庭200余万元。", result: "判处有期徒刑十二年" },
+  { type: "ip", typeLabel: "知产", title: "数控机床技术秘密侵权案", desc: "最高法审理某数控机床技术秘密侵权案，恶意侵权人严重侵害企业商业秘密。", result: "判令3倍惩罚性赔偿3.8亿元" },
+  { type: "civil", typeLabel: "民事", title: "闭眼小憩3分钟被辞退案", desc: "余某连续工作超8小时、公司未安排人员接替，因闭眼小憩3分钟被辞退。", result: "广东法院认定构成违法解除劳动合同" },
+  { type: "criminal", typeLabel: "刑事", title: "14岁学生杀害女同学案", desc: "某14岁学生杀害女同学，犯罪行为极其恶劣。", result: "依法顶格判处无期徒刑" },
+  { type: "ip", typeLabel: "知产", title: "芯片技术商业秘密案", desc: "张某等14人非法获取原公司芯片技术信息。", result: "以侵犯商业秘密罪定罪判刑" },
+  { type: "env", typeLabel: "环境", title: "非法排放废盐酸污染湖泊案", desc: "浙江某企业非法排放废盐酸严重污染湖泊生态环境。", result: "定罪判刑并判令赔偿修复费用4.8亿元" },
+  { type: "foreign", typeLabel: "涉外", title: "外国公司拒签提单案", desc: "某外国公司以我国公司受制裁为由拒签提单，企图干扰正常贸易。", result: "法院出具强制令责令交付提单并赔偿损失" },
+  { type: "exec", typeLabel: "执行", title: ""菜篮子"公司执行和解案", desc: "某"菜篮子"公司被申请强制执行，安徽法院鉴于其有偿债可能促成执行和解。", result: "经营自救，按期偿还900万元欠款" },
+  { type: "civil", typeLabel: "民事", title: "两大电商"二选一"案", desc: "两大电商企业滥用市场支配地位要求商家"二选一"。", result: "引导双方互联互利、共促消费" },
+  { type: "criminal", typeLabel: "刑事", title: ""人肉开盒"侵犯隐私案", desc: "两名青年恶意"人肉开盒"，非法获取并散布他人隐私信息。", result: "依法定罪判刑" }
+];
+
+var outlookData = [
+  {
+    num: "01", title: "忠诚履职，为大局服务、为人民司法",
+    items: ["严惩危害国家安全犯罪", "从严惩治严重暴力犯罪", "健全扫黑除恶常态化机制", "依法惩治腐败犯罪", "强化未成年人犯罪预防治理", "加强知识产权司法保护", "促进数字经济、\"人工智能+\"规范发展", "贯彻民营经济促进法", "助力城市更新和乡村全面振兴"]
+  },
+  {
+    num: "02", title: "守正创新，健全公正司法体制机制",
+    items: ["深入实施\"六五改革纲要\"", "完善司法公正实现和评价机制", "深化刑事诉讼制度改革", "加快涉外审判体系建设", "健全国家执行体制", "加快推进数字法院建设", "加强相对薄弱基层法院建设"]
+  },
+  {
+    num: "03", title: "严管厚爱，锻造新时代法院铁军",
+    items: ["政治建设、业务建设、职业道德建设一体推进", "深入践行全过程人民民主", "培养涉外、金融、破产等专业审判人才", "持之以恒推进全面从严管党治院", "健全司法责任追究机制"]
+  }
+];
+
+/* ========== RENDER FUNCTIONS ========== */
+
+function renderStats() {
+  var grid = document.getElementById('statGrid');
+  var html = '';
+  overviewStats.forEach(function(s, i) {
+    var changeHtml = s.change ? '<span class="stat-card-change ' + s.dir + '">' + s.change + '</span>' : '';
+    html += '<div class="stat-card reveal" style="animation-delay:' + (i * 0.05) + 's">'
+      + '<div class="stat-card-icon" style="background:' + s.bg + '">' + s.icon + '</div>'
+      + '<div class="stat-card-value">' + s.value + '<span class="unit">' + s.unit + '</span></div>'
+      + '<div class="stat-card-label">' + s.label + '</div>'
+      + changeHtml
+      + '</div>';
+  });
+  grid.innerHTML = html;
+}
+
+function renderChapters() {
+  var grid = document.getElementById('chapterGrid');
+  var html = '';
+  chapters.forEach(function(ch, i) {
+    var tagsHtml = ch.tags.map(function(t) { return '<span class="chapter-tag">' + t + '</span>'; }).join('');
+    html += '<div class="chapter-card ' + ch.cls + ' reveal" onclick="openChapter(' + i + ')" style="animation-delay:' + (i * 0.08) + 's">'
+      + '<div class="chapter-card-num">' + ch.num + '</div>'
+      + '<div class="chapter-card-title">' + ch.title + '</div>'
+      + '<div class="chapter-card-desc">' + ch.desc + '</div>'
+      + '<div class="chapter-card-tags">' + tagsHtml + '</div>'
+      + '</div>';
+  });
+  grid.innerHTML = html;
+}
+
+function renderCases() {
+  var scroll = document.getElementById('caseScroll');
+  var html = '';
+  cases.forEach(function(c) {
+    html += '<div class="case-card">'
+      + '<span class="case-type ' + c.type + '">' + c.typeLabel + '</span>'
+      + '<div class="case-title">' + c.title + '</div>'
+      + '<div class="case-desc">' + c.desc + '</div>'
+      + '<div class="case-result">⚖ ' + c.result + '</div>'
+      + '</div>';
+  });
+  scroll.innerHTML = html;
+}
+
+function renderOutlook() {
+  var grid = document.getElementById('outlookGrid');
+  var html = '';
+  outlookData.forEach(function(o, i) {
+    var itemsHtml = o.items.map(function(item) { return '<li>' + item + '</li>'; }).join('');
+    html += '<div class="outlook-card reveal" style="animation-delay:' + (i * 0.1) + 's">'
+      + '<div class="outlook-num">' + o.num + '</div>'
+      + '<div class="outlook-title">' + o.title + '</div>'
+      + '<ul class="outlook-items">' + itemsHtml + '</ul>'
+      + '</div>';
+  });
+  grid.innerHTML = html;
+}
+
+/* ========== CHARTS ========== */
+
+function renderDrunkChart() {
+  var container = document.getElementById('drunkChart');
+  var data = [
+    { year: '2023', value: 32 },
+    { year: '2024', value: 27.8 },
+    { year: '2025', value: 23.1 }
+  ];
+  var w = container.offsetWidth || 400;
+  var h = 220;
+  var padL = 50, padR = 30, padT = 20, padB = 40;
+  var chartW = w - padL - padR;
+  var chartH = h - padT - padB;
+  var maxVal = 35;
+
+  function x(i) { return padL + (i / (data.length - 1)) * chartW; }
+  function y(v) { return padT + chartH - (v / maxVal) * chartH; }
+
+  var areaPath = 'M' + x(0) + ',' + y(data[0].value);
+  var linePath = 'M' + x(0) + ',' + y(data[0].value);
+  for (var i = 1; i < data.length; i++) {
+    areaPath += ' L' + x(i) + ',' + y(data[i].value);
+    linePath += ' L' + x(i) + ',' + y(data[i].value);
+  }
+  areaPath += ' L' + x(data.length - 1) + ',' + (padT + chartH) + ' L' + x(0) + ',' + (padT + chartH) + ' Z';
+
+  var svg = '<svg width="' + w + '" height="' + h + '" style="display:block;">';
+  // Grid lines
+  for (var g = 0; g <= 35; g += 10) {
+    var gy = y(g);
+    svg += '<line x1="' + padL + '" y1="' + gy + '" x2="' + (w - padR) + '" y2="' + gy + '" stroke="#e5e7eb" stroke-dasharray="4,4"/>';
+    svg += '<text x="' + (padL - 8) + '" y="' + (gy + 4) + '" text-anchor="end" font-size="11" fill="#9CA3AF">' + g + '</text>';
+  }
+  // Area
+  svg += '<path d="' + areaPath + '" fill="url(#drunkGrad)" opacity="0.3"/>';
+  svg += '<defs><linearGradient id="drunkGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#047857"/><stop offset="100%" stop-color="#047857" stop-opacity="0"/></linearGradient></defs>';
+  // Line
+  svg += '<path d="' + linePath + '" fill="none" stroke="#047857" stroke-width="3" stroke-linecap="round"/>';
+  // Points and labels
+  for (var j = 0; j < data.length; j++) {
+    svg += '<circle cx="' + x(j) + '" cy="' + y(data[j].value) + '" r="6" fill="#047857" stroke="white" stroke-width="2"/>';
+    svg += '<text x="' + x(j) + '" y="' + (y(data[j].value) - 14) + '" text-anchor="middle" font-size="14" font-weight="700" fill="#047857">' + data[j].value + '万</text>';
+    svg += '<text x="' + x(j) + '" y="' + (padT + chartH + 24) + '" text-anchor="middle" font-size="12" fill="#6B7280">' + data[j].year + '年</text>';
+  }
+  // Arrow annotation
+  svg += '<text x="' + ((x(0) + x(2)) / 2) + '" y="' + (y(27) + 30) + '" text-anchor="middle" font-size="11" fill="#DC2626" font-weight="600">↓ 下降27.8%</text>';
+  svg += '</svg>';
+  container.innerHTML = svg;
+}
+
+function renderCaseTypeChart() {
+  var container = document.getElementById('caseTypeChart');
+  var data = [
+    { label: '金融案件', value: 270.7, max: 300, color: '#2C5F8A' },
+    { label: '劳动争议', value: 67.4, max: 300, color: '#047857' },
+    { label: '知识产权', value: 49.6, max: 300, color: '#7C3AED' },
+    { label: '暴力犯罪', value: 4.6, max: 300, color: '#C53D43' },
+    { label: '电信诈骗', value: 4.1, max: 300, color: '#D97706' },
+    { label: '职务犯罪', value: 3.6, max: 300, color: '#0891B2' }
+  ];
+  var html = '';
+  data.forEach(function(d) {
+    var pct = Math.max(5, (d.value / data[0].value) * 100);
+    html += '<div class="bar-row">'
+      + '<span class="bar-label">' + d.label + '</span>'
+      + '<div class="bar-track"><div class="bar-fill" data-width="' + pct + '%" style="background:' + d.color + '">' + d.value + '</div></div>'
+      + '</div>';
+  });
+  container.innerHTML = html;
+}
+
+function renderForeignChart() {
+  var container = document.getElementById('foreignChart');
+  var data = [
+    { label: '知识产权', value: 115.9, color: '#7C3AED' },
+    { label: '海事案件', value: 84.6, color: '#2C5F8A' },
+    { label: '涉外案件总量', value: 66, color: '#D97706' }
+  ];
+  var html = '';
+  data.forEach(function(d) {
+    var pct = Math.max(10, (d.value / 120) * 100);
+    html += '<div class="bar-row">'
+      + '<span class="bar-label">' + d.label + '</span>'
+      + '<div class="bar-track"><div class="bar-fill" data-width="' + pct + '%" style="background:' + d.color + '">+' + d.value + '%</div></div>'
+      + '</div>';
+  });
+  container.innerHTML = html;
+}
+
+function renderExecStats() {
+  var container = document.getElementById('execStats');
+  var data = [
+    { icon: '💰', val: '2.2万亿', label: '执行到位金额' },
+    { icon: '🔄', val: '26.8万件', label: '交叉执行案件' },
+    { icon: '📉', val: '-5.2%', label: '失信名单人数' },
+    { icon: '⚖️', val: '4461人', label: '拒执罪判刑' },
+    { icon: '📊', val: '+2.7%', label: '自动履行率提升' },
+    { icon: '💼', val: '845.6亿', label: '交叉执行到位' }
+  ];
+  var html = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">';
+  data.forEach(function(d) {
+    html += '<div style="background:var(--warm);border-radius:10px;padding:14px;text-align:center;">'
+      + '<div style="font-size:20px;margin-bottom:4px;">' + d.icon + '</div>'
+      + '<div style="font-family:\'Noto Serif SC\',serif;font-size:18px;font-weight:900;color:var(--navy);">' + d.val + '</div>'
+      + '<div style="font-size:11px;color:var(--gray);margin-top:2px;">' + d.label + '</div>'
+      + '</div>';
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+/* ========== MODAL ========== */
+
+function openChapter(idx) {
+  var ch = chapters[idx];
+  var body = document.getElementById('modalBody');
+  var html = '<div class="modal-chapter-num">第 ' + ch.num + ' 章</div>';
+  html += '<div class="modal-title">' + ch.title + '</div>';
+  // Stats
+  html += '<div class="modal-stat-row">';
+  ch.stats.forEach(function(s) {
+    html += '<div class="modal-stat-chip"><strong>' + s.val + '</strong> ' + s.label + '</div>';
+  });
+  html += '</div>';
+  // Sections
+  ch.sections.forEach(function(sec) {
+    html += '<div class="modal-section">'
+      + '<div class="modal-section-title">' + sec.title + '</div>'
+      + '<div class="modal-section-text">' + sec.text + '</div>'
+      + '</div>';
+  });
+  body.innerHTML = html;
+  document.getElementById('modalOverlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modalOverlay')) {
+    document.getElementById('modalOverlay').classList.remove('show');
+    document.body.style.overflow = '';
+  }
+}
+
+/* ========== SCROLL REVEAL & NAV ========== */
+
+function initScrollReveal() {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Animate bars
+        var bars = entry.target.querySelectorAll('.bar-fill');
+        bars.forEach(function(bar) {
+          var w = bar.getAttribute('data-width');
+          if (w) bar.style.width = w;
+        });
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal, .chart-container').forEach(function(el) {
+    observer.observe(el);
+  });
+}
+
+function initNavHighlight() {
+  var sections = ['hero', 'overview', 'chapters', 'cases', 'charts', 'outlook'];
+  var navItems = document.querySelectorAll('.nav-item');
+  
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var id = entry.target.id;
+        navItems.forEach(function(item, i) {
+          item.classList.toggle('active', sections[i] === id);
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  sections.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+}
+
+function scrollToSection(id) {
+  var el = document.getElementById(id);
+  if (el) {
+    var offset = el.getBoundingClientRect().top + window.pageYOffset - 90;
+    window.scrollTo({ top: offset, behavior: 'smooth' });
+  }
+}
+
+/* ========== INIT ========== */
+
+function init() {
+  renderStats();
+  renderChapters();
+  renderCases();
+  renderOutlook();
+  renderDrunkChart();
+  renderCaseTypeChart();
+  renderForeignChart();
+  renderExecStats();
+  initScrollReveal();
+  initNavHighlight();
+
+  // Animate bars on page load for visible ones
+  setTimeout(function() {
+    document.querySelectorAll('.bar-fill').forEach(function(bar) {
+      var rect = bar.getBoundingClientRect();
+      if (rect.top < window.innerHeight) {
+        var w = bar.getAttribute('data-width');
+        if (w) bar.style.width = w;
+      }
+    });
+  }, 500);
+
+  // ESC to close modal
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.getElementById('modalOverlay').classList.remove('show');
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Resize chart
+  window.addEventListener('resize', function() {
+    renderDrunkChart();
+  });
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
